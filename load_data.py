@@ -6,8 +6,18 @@ from models import Operation
 
 
 def load_data(path_datafile: str) -> List[Operation]:
-    with open(path_datafile, 'r', encoding='utf-8') as file:
-        data_list: List[Dict[str, Any]] = json.load(file)
+    """
+    The load_data function takes as a parameter the path to a JSON file as a string. When called,
+    it opens a file and reads data from its contents. Forms instances of the data model from the received data
+    and returns them as a list.
+    """
+    try:
+        with open(path_datafile, 'r', encoding='utf-8') as file:
+            data_list: List[Dict[str, Any]] = json.load(file)
+
+    except FileNotFoundError:
+        print(f'No such file or directory: {path_datafile}')
+        data_list = []
 
     result: list = []
     format = '%Y-%m-%dT%H:%M:%S.%f'
